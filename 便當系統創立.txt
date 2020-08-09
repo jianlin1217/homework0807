@@ -1,0 +1,39 @@
+CREATE database eating_order DEFAULT CHARACTER SET UTF8 ;
+
+Create Table orderlist 
+(
+	orderID int PRIMARY KEY NOT NULL AUTO_INCREMENT,
+    	customer int UNIQUE,
+   	 carrierID int UNIQUE,
+   	 offerCompanyID int UNIQUE,
+   	 orderDate Datetime,
+    	arriveYN ENUM('y','n') not null DEFAULT 'n'
+);
+
+CREATE TABLE order_details 
+(
+	orderID int PRIMARY KEY not null AUTO_INCREMENT,
+    dishesID int UNIQUE,
+    foodCount int,
+    foodNote varchar(50) default '無特別需求',
+    total int ,
+    destination char(50)
+);
+CREATE table dishes
+(
+	dushesID int PRIMARY KEY NOT null AUTO_INCREMENT,
+    offerCompanyID int UNIQUE,
+    dishesName varchar(30),
+    dishesPrice int,
+    dishesCal int,
+    dishesNotice varchar(50)
+);
+CREATE TABLE offerCompany
+(
+    offerCompanyID int PRIMARY KEY not NULL AUTO_INCREMENT,
+    dishesID int UNIQUE,
+    companyNane varchar(20),
+    companyPhone char(10),
+    managerName varchar(20),
+    evaluation char(30)
+);
