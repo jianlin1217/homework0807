@@ -3,7 +3,7 @@ CREATE database eating_order DEFAULT CHARACTER SET UTF8 ;
 Create Table orderlist 
 (
 	orderID int PRIMARY KEY NOT NULL AUTO_INCREMENT,
-    	customer int UNIQUE,
+    	customerID int UNIQUE,
    	 carrierID int UNIQUE,
    	 offerCompanyID int UNIQUE,
    	 orderDate Datetime,
@@ -21,8 +21,8 @@ CREATE TABLE order_details
 );
 CREATE table dishes
 (
-	dushesID int PRIMARY KEY NOT null AUTO_INCREMENT,
-    offerCompanyID int UNIQUE,
+    dishesID int PRIMARY KEY NOT null AUTO_INCREMENT,
+    offerCompanyID int,
     dishesName varchar(30),
     dishesPrice int,
     dishesCal int,
@@ -32,8 +32,152 @@ CREATE TABLE offerCompany
 (
     offerCompanyID int PRIMARY KEY not NULL AUTO_INCREMENT,
     dishesID int UNIQUE,
-    companyNane varchar(20),
+    companyName varchar(20),
     companyPhone char(10),
     managerName varchar(20),
     evaluation char(30)
 );
+CREATE TABLE customer
+(
+    customerID int PRIMARY KEY NOT NULL AUTO_INCREMENT,
+    customerName varchar(20),
+    customerPhone char(10),
+    hopeTime datetime
+);
+CREATE TABLE carrier
+(
+	carrierID int PRIMARY KEY not NULL AUTO_INCREMENT,
+    carrierName varchar(20),
+    carrierPhone char(10),
+    arriveTime datetime
+);
+
+
+ALTER table order_details
+add CONSTRAINT fk_ol_od
+FOREIGN KEY (orderID) REFERENCES orderlist (orderID);
+
+
+insert INTO orderlist
+(orderID,customerID,carrierID,offerCompanyID,orderDate)
+VALUES
+(1,1,1,1,'2020-08-08 17:11:35');
+
+insert INTO orderlist
+(orderID,customerID,carrierID,offerCompanyID,orderDate)
+VALUES
+(2,2,21,2,'2020-08-06 11:32:24');
+
+insert INTO orderlist
+(customerID,carrierID,offerCompanyID,orderDate)
+VALUES
+(3,7,4,'2020-08-07 9:39:30');
+
+insert into order_details
+(dishesID,foodCount,foodNote,total,destination)
+VALUES
+(1,17,'其中三份不要番茄醬',1290,'台中市西屯區文心路三段64號');
+
+update  order_details
+set total =2170
+WHERE total = 1290;
+
+insert into order_details
+(dishesID,foodCount,foodNote,total,destination)
+VALUES
+(2,8,'雞翅不要辣',960,'台中市烏日區光日路12號');
+
+INSERT INTO offercompany 
+(dishesID, companyName, companyPhone, managerName, evaluation) 
+VALUES 
+(1, '黑盒子', '0964335421', '王妤昕', '4顆星');
+
+
+
+INSERT INTO offercompany 
+( dishesID, companyName, companyPhone, managerName, evaluation) 
+VALUES 
+(2, '胖老媽', '0932157865', '陳冠宇', '5顆星');
+
+
+INSERT INTO offercompany 
+( dishesID, companyName, companyPhone, managerName, evaluation) 
+VALUES 
+(3, '達美熱', '0934889912', '林祥宇', '3顆星');
+
+INSERT INTO offercompany 
+( dishesID, companyName, companyPhone, managerName, evaluation) 
+VALUES 
+(4, '大卜鐵板燒', '0933148452', '蔡貴志', '4顆星');
+
+insert into dishes
+(offerCompanyID,dishesName,dishesPrice,dishesCal,dishesNotice)
+VALUES
+(1,'起司蛋包飯',80,213,'對蛋過敏者請勿點選');
+
+
+insert into dishes
+(offerCompanyID,dishesName,dishesPrice,dishesCal,dishesNotice)
+VALUES
+(1,'鮭魚蛋包飯',100,231,'對蛋過敏者請勿點選，本產品含海鮮');
+
+insert into dishes
+(offerCompanyID,dishesName,dishesPrice,dishesCal,dishesNotice)
+VALUES
+(1,'牛肉蛋包飯',95,253,'對蛋過敏者請勿點選，本產品含牛');
+
+insert into dishes
+(offerCompanyID,dishesName,dishesPrice,dishesCal)
+VALUES
+(2,'雞腿',40,108);
+
+insert into dishes
+(offerCompanyID,dishesName,dishesPrice,dishesCal)
+VALUES
+(2,'雞翅',30,84);
+
+insert into dishes
+(offerCompanyID,dishesName,dishesPrice,dishesCal)
+VALUES
+(2,'雞排',70,165);
+
+insert into dishes
+(offerCompanyID,dishesName,dishesPrice,dishesCal)
+VALUES
+(2,'薯條',30,127);
+
+insert into dishes
+(offerCompanyID,dishesName,dishesPrice,dishesCal,dishesNotice)
+VALUES
+(3,'夏威夷pizza',220,357,'含鳳梨');
+
+insert into dishes
+(offerCompanyID,dishesName,dishesPrice,dishesCal,dishesNotice)
+VALUES
+(3,'起司海鮮pizza',380,419,'含過敏原');
+
+insert into dishes
+(offerCompanyID,dishesName,dishesPrice,dishesCal)
+VALUES
+(4,'羊肉鐵板燒',140,451);
+
+insert into dishes
+(offerCompanyID,dishesName,dishesPrice,dishesCal)
+VALUES
+(4,'牛肉鐵板燒',150,518);
+
+insert into dishes
+(offerCompanyID,dishesName,dishesPrice,dishesCal)
+VALUES
+(4,'豬肉鐵板燒',140,424);
+
+
+INSERT into customer
+(customerName,customerPhone,hopeTime)
+VALUES
+('陳小姐','0961264865','2020-08-10 11:30:00');
+
+INSERT into customer
+(customerName,customerPhone,hopeTime)
+VALUES
+('林先生','0978638154','2020-08-12 18:30:00');
