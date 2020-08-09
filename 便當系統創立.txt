@@ -13,7 +13,7 @@ Create Table orderlist
 CREATE TABLE order_details 
 (
 	orderID int PRIMARY KEY not null AUTO_INCREMENT,
-    dishesID int UNIQUE,
+    offercompanyID int,
     foodCount int,
     foodNote varchar(50) default '無特別需求',
     total int ,
@@ -31,7 +31,6 @@ CREATE table dishes
 CREATE TABLE offerCompany
 (
     offerCompanyID int PRIMARY KEY not NULL AUTO_INCREMENT,
-    dishesID int UNIQUE,
     companyName varchar(20),
     companyPhone char(10),
     managerName varchar(20),
@@ -74,39 +73,50 @@ VALUES
 (3,7,4,'2020-08-07 9:39:30');
 
 insert into order_details
-(dishesID,foodCount,foodNote,total,destination)
+(offercompanyID,foodCount,foodNote,total,destination)
 VALUES
-(1,17,'其中三份不要番茄醬',1290,'台中市西屯區文心路三段64號');
+(1,17,'其中起司三份不要番茄醬',1290,'台中市西屯區文心路三段64號');
 
 update  order_details
 set total =2170
-WHERE total = 1290;
+WHERE total = 1290 AND orderID=1;
+
+update  order_details
+set total =1570
+WHERE total = 2170 AND orderID=1;
 
 insert into order_details
-(dishesID,foodCount,foodNote,total,destination)
+(offercompanyID,foodCount,foodNote,total,destination)
 VALUES
 (2,8,'雞翅不要辣',960,'台中市烏日區光日路12號');
 
+
+
+insert into order_details
+(offercompanyID,foodCount,foodNote,total,destination)
+VALUES
+(4,4,'牛肉大辣、羊肉小辣',580,'台中市南屯區永春東七路124號');
+
 INSERT INTO offercompany 
-(dishesID, companyName, companyPhone, managerName, evaluation) 
+(offercompanyID, companyName, companyPhone, managerName, evaluation) 
 VALUES 
 (1, '黑盒子', '0964335421', '王妤昕', '4顆星');
 
 
 
 INSERT INTO offercompany 
-( dishesID, companyName, companyPhone, managerName, evaluation) 
+(offercompanyID, companyName, companyPhone, managerName, evaluation) 
 VALUES 
 (2, '胖老媽', '0932157865', '陳冠宇', '5顆星');
 
 
 INSERT INTO offercompany 
-( dishesID, companyName, companyPhone, managerName, evaluation) 
+(offercompanyID, companyName, companyPhone, managerName, evaluation) 
 VALUES 
 (3, '達美熱', '0934889912', '林祥宇', '3顆星');
 
 INSERT INTO offercompany 
-( dishesID, companyName, companyPhone, managerName, evaluation) 
+( offercompanyID, companyName, companyPhone, managerName, evaluation) 
 VALUES 
 (4, '大卜鐵板燒', '0933148452', '蔡貴志', '4顆星');
 
@@ -181,3 +191,23 @@ INSERT into customer
 (customerName,customerPhone,hopeTime)
 VALUES
 ('林先生','0978638154','2020-08-12 18:30:00');
+
+INSERT into customer
+(customerName,customerPhone,hopeTime)
+VALUES
+('劉先生','0976485414','2020-08-11 19:00:00');
+
+insert INTO carrier
+(carrierName,carrierPhone,arriveTime)
+VALUES
+('王威浩','0964324578','2020-08-10 11:31:25');
+
+insert INTO carrier
+(carrierID,carrierName,carrierPhone)
+VALUES
+(7,'廖潔婷','0994624187');
+
+insert INTO carrier
+(carrierID,carrierName,carrierPhone)
+VALUES
+(21,'李惠軒','0911354865');
